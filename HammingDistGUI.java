@@ -1,8 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,6 +25,7 @@ public class HammingDistGUI {
 		JPanel leftSide = new JPanel(new GridLayout(8,1));
 		JPanel rightSide = new JPanel();
 		HammingDistance hd = new HammingDistance();
+		String dropBoxItem = "";
 		
 		//JPanel leftContents = new JPanel(new GridLayout(8,1));
 		
@@ -42,8 +46,8 @@ public class HammingDistGUI {
 	    row2.setPaintLabels(true);
 	    row2.addChangeListener(new ChangeListener() {
 	    	public void stateChanged(ChangeEvent event) {
-	            int sliderValue = row2.getValue();
-	            inputDist.setText(Integer.toString(sliderValue));
+	            int value = row2.getValue();
+	            inputDist.setText(Integer.toString(value));
 	          }
 	    });
 	    
@@ -51,15 +55,26 @@ public class HammingDistGUI {
 		
 		//row 3 is the show status button
 		JPanel row3 = new JPanel(new BorderLayout());
-		JButton showStatus = new JButton("Show Status");
+		JButton showStations = new JButton("Show Stations");
 		
-		showStatus.addActionListener((e) -> {
+		showStations.addActionListener((e) -> {
+			displayHammDist.setText("");
+			String stringNumber = inputDist.getText();
+			int value = Integer.parseInt(stringNumber);
+			String sameList = "";
+			ArrayList<String> list = hd.getSameStations(dropBoxItem, value);
+			Collections.sort(list);
+			for(String s : list) {
+				sameList += s + "\n";
+			}
+			displayHammDist.setText(sameList);
+			
 			
 			//TODO make button do stuff
 			
 		});
 		
-		row3.add(showStatus, BorderLayout.WEST);
+		row3.add(showStations, BorderLayout.WEST);
 		leftSide.add(row3);
 		
 		// row 4 is the JTextArea
@@ -67,7 +82,7 @@ public class HammingDistGUI {
 		row4.setSize(300, 400);
 		JTextArea displayHammDist = new JTextArea();
 		displayHammDist.setSize(300, 400); //TODO Figure out why sizing will not work
-		displayHammDist.setEditable(false);
+		displayHammDist.setEditable(true);
 		row4.add(displayHammDist);
 		leftSide.add(row4);
 		
@@ -75,6 +90,7 @@ public class HammingDistGUI {
 		JPanel row5 = new JPanel(new GridLayout(1, 2));
 		JLabel compareWith = new JLabel("Compare with:");
 		JComboBox dropBox = new JComboBox();
+		dropBoxItem = (String) dropBox.getSelectedItem();
 		row5.add(compareWith);
 		row5.add(dropBox);
 		leftSide.add(row5);
