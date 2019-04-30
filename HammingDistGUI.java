@@ -1,5 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -9,13 +12,16 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class HammingDistGUI {
 	
-	public HammingDistGUI() {
+	public HammingDistGUI() throws IOException {
 		JFrame HammingDist = new JFrame();
 		JPanel leftSide = new JPanel(new GridLayout(8,1));
 		JPanel rightSide = new JPanel();
+		HammingDistance hd = new HammingDistance();
 		
 		//JPanel leftContents = new JPanel(new GridLayout(8,1));
 		
@@ -34,12 +40,25 @@ public class HammingDistGUI {
 	    row2.setMajorTickSpacing(1);
 		row2.setPaintTicks(true);
 	    row2.setPaintLabels(true);
+	    row2.addChangeListener(new ChangeListener() {
+	    	public void stateChanged(ChangeEvent event) {
+	            int sliderValue = row2.getValue();
+	            inputDist.setText(Integer.toString(sliderValue));
+	          }
+	    });
+	    
 		leftSide.add(row2);
 		
 		//row 3 is the show status button
 		JPanel row3 = new JPanel(new BorderLayout());
 		JButton showStatus = new JButton("Show Status");
-		//TODO make button do stuff
+		
+		showStatus.addActionListener((e) -> {
+			
+			//TODO make button do stuff
+			
+		});
+		
 		row3.add(showStatus, BorderLayout.WEST);
 		leftSide.add(row3);
 		
@@ -63,7 +82,13 @@ public class HammingDistGUI {
 		//row 6
 		JPanel row6 = new JPanel(new BorderLayout());
 		JButton calculateHD = new JButton("Calculate HD");
-		//TODO make button do stuff
+		
+		calculateHD.addActionListener((e) -> {
+			
+			//TODO make button do stuff
+			
+		});
+		
 		row6.add(calculateHD, BorderLayout.WEST);
 		leftSide.add(row6);
 		
@@ -100,10 +125,19 @@ public class HammingDistGUI {
 		//row 8 is jbutton and jtextarea
 		JPanel row8 = new JPanel(new GridLayout(1, 2));
 		JButton addStation = new JButton("Add Station");
+		
+		addStation.addActionListener((e) -> {
+			
+			//TODO make button do stuff
+			
+		});
+		
 		JTextArea stationInput = new JTextArea(1, 1);
 		row8.add(addStation);
 		row8.add(stationInput);
 		leftSide.add(row8);
+		
+		
 		
 		
 		
@@ -124,7 +158,7 @@ public class HammingDistGUI {
 	
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		new HammingDistGUI();
 	}
 
