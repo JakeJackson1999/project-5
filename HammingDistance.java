@@ -16,16 +16,21 @@ public class HammingDistance {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		String str;
 		str = br.readLine();
-		str = br.readLine();
-		str = br.readLine();
-		str = br.readLine();
 		while(str != null) {
-			hammingArray.add(str.substring(1,  5));
+			hammingArray.add(str.substring(0,  4));
 			str = br.readLine();
-			System.out.println(str);
 		}
 		br.close();
 		
+	}
+	
+	public String[] getStations() {
+		String[] stationsList = new String[hammingArray.size()];
+		
+		for(int i = 0; i < hammingArray.size(); i++) {
+			stationsList[i] = hammingArray.get(i);
+		}
+		return stationsList;
 	}
 	
 	public ArrayList<String> getSameStations(String city, int value){

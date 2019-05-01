@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
@@ -25,7 +26,8 @@ public class HammingDistGUI {
 		JPanel leftSide = new JPanel(new GridLayout(8,1));
 		JPanel rightSide = new JPanel();
 		HammingDistance hd = new HammingDistance();
-		String dropBoxItem = "";
+		//String dropBoxItem = "";
+		String[] stationList = hd.getStations();
 		
 		//JPanel leftContents = new JPanel(new GridLayout(8,1));
 		
@@ -57,7 +59,7 @@ public class HammingDistGUI {
 		JPanel row3 = new JPanel(new BorderLayout());
 		JButton showStations = new JButton("Show Stations");
 		
-		showStations.addActionListener((e) -> {
+		/**showStations.addActionListener((e) -> {
 			displayHammDist.setText("");
 			String stringNumber = inputDist.getText();
 			int value = Integer.parseInt(stringNumber);
@@ -72,7 +74,7 @@ public class HammingDistGUI {
 			
 			//TODO make button do stuff
 			
-		});
+		});*/
 		
 		row3.add(showStations, BorderLayout.WEST);
 		leftSide.add(row3);
@@ -89,8 +91,8 @@ public class HammingDistGUI {
 		//row 5 is label and combo box
 		JPanel row5 = new JPanel(new GridLayout(1, 2));
 		JLabel compareWith = new JLabel("Compare with:");
-		JComboBox dropBox = new JComboBox();
-		dropBoxItem = (String) dropBox.getSelectedItem();
+		JComboBox dropBox = new JComboBox(stationList);
+		//dropBoxItem = (String) dropBox.getSelectedItem();
 		row5.add(compareWith);
 		row5.add(dropBox);
 		leftSide.add(row5);
@@ -152,6 +154,35 @@ public class HammingDistGUI {
 		row8.add(addStation);
 		row8.add(stationInput);
 		leftSide.add(row8);
+		
+		// action listeners for buttons and other gui components
+		inputDist.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent e) {
+		        String value = inputDist.getText();
+	            row2.setValue(Integer.parseInt(value));
+		      }
+		});
+		
+		showStations.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {	
+				displayHammDist.setText("");
+				//String stringNumber = inputDist.getText();
+				//int value = Integer.parseInt(stringNumber);
+				int value = row2.getValue();
+				String sameList = "";
+				String dropBoxItem = (String) dropBox.getSelectedItem();
+				ArrayList<String> list = hd.getSameStations(dropBoxItem, value);
+				Collections.sort(list);
+				for(String s : list) {
+					sameList += s + "\n";
+				}
+				displayHammDist.setText(sameList);
+			
+			}
+			//TODO make button do stuff
+			
+		});
 		
 		
 		
