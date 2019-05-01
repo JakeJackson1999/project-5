@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -27,7 +28,9 @@ public class HammingDistGUI {
 		JPanel rightSide = new JPanel();
 		HammingDistance hd = new HammingDistance();
 		//String dropBoxItem = "";
-		String[] stationList = hd.getStations();
+		ArrayList<String> stationList = hd.getStations();
+		int count = 1;
+		ArrayList<String> newList = new ArrayList<String>();
 		
 		//JPanel leftContents = new JPanel(new GridLayout(8,1));
 		
@@ -91,7 +94,7 @@ public class HammingDistGUI {
 		//row 5 is label and combo box
 		JPanel row5 = new JPanel(new GridLayout(1, 2));
 		JLabel compareWith = new JLabel("Compare with:");
-		JComboBox dropBox = new JComboBox(stationList);
+		JComboBox dropBox = new JComboBox(stationList.toArray());
 		//dropBoxItem = (String) dropBox.getSelectedItem();
 		row5.add(compareWith);
 		row5.add(dropBox);
@@ -143,13 +146,6 @@ public class HammingDistGUI {
 		//row 8 is jbutton and jtextarea
 		JPanel row8 = new JPanel(new GridLayout(1, 2));
 		JButton addStation = new JButton("Add Station");
-		
-		addStation.addActionListener((e) -> {
-			
-			//TODO make button do stuff
-			
-		});
-		
 		JTextArea stationInput = new JTextArea(1, 1);
 		row8.add(addStation);
 		row8.add(stationInput);
@@ -164,11 +160,9 @@ public class HammingDistGUI {
 		});
 		
 		showStations.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {	
+		@Override
+		public void actionPerformed(ActionEvent arg0) {	
 				displayHammDist.setText("");
-				//String stringNumber = inputDist.getText();
-				//int value = Integer.parseInt(stringNumber);
 				int value = row2.getValue();
 				String sameList = "";
 				String dropBoxItem = (String) dropBox.getSelectedItem();
@@ -184,7 +178,36 @@ public class HammingDistGUI {
 			
 		});
 		
-		
+		addStation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String input = stationInput.getText().toUpperCase();
+				if(input.length() == 4) {
+					/**String[] newStationList = new String[size + count];
+					
+					newStationList[0] = input;
+					
+					for (int i = 1; i < newStationList.length-1; i++) {
+						newStationList[i] = stationList[i-1];
+					}
+					
+					DefaultComboBoxModel dcm = new DefaultComboBoxModel(newStationList);
+					dropBox.setModel(dcm);*/
+					
+					hd.addStation(input);
+					Object[] newStations = hd.getStations().toArray();
+					DefaultComboBoxModel dcm = new DefaultComboBoxModel(newStations);
+					dropBox.setModel(dcm);
+					
+					
+				}
+				else {
+					System.out.println("Stations isn't the right length");
+				}
+				
+			}
+			//TODO make button do stuff
+			
+		});
 		
 		
 		

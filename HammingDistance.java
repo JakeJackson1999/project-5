@@ -3,12 +3,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HammingDistance {
 	
 	private String city;
 	private ArrayList<String> hammingArray = new ArrayList<String>();
-	
+	String compare = "";
+
 	public HammingDistance() throws IOException {
 		
 		
@@ -24,21 +26,25 @@ public class HammingDistance {
 		
 	}
 	
-	public String[] getStations() {
-		String[] stationsList = new String[hammingArray.size()];
+	public ArrayList<String> getStations() {
+		/**ArrayList<String> stationsList = new ArrayList<String>;
 		
 		for(int i = 0; i < hammingArray.size(); i++) {
 			stationsList[i] = hammingArray.get(i);
-		}
-		return stationsList;
+		}*/
+		return hammingArray;
 	}
 	
 	public ArrayList<String> getSameStations(String city, int value){
 		this.city = city;
+		ArrayList<String> stations = getStations();
 		
 		ArrayList<String> sameList = new ArrayList<String>();
+		
+		
 		for(int i = 0; i < sameList.size(); i++) {
-			String compare = hammingArray.get(i);
+			compare = stations.get(i);
+			
 			int count = 0;
 			char city1 = city.charAt(0);
 			char city2 = city.charAt(1);
@@ -76,6 +82,31 @@ public class HammingDistance {
 		
 		//TODO used to return same stations using value from the slider use treeset to store same stations
 	}
+	
+	public ArrayList<String> addStation(String input){
+		
+		boolean isIn = false;
+		
+		for(int i = 0; i < hammingArray.size(); i++) {
+			if(input.equalsIgnoreCase(hammingArray.get(i))) {
+				isIn = true;
+				break;
+			}
+		}
+		
+		
+		if(isIn == false) {
+			hammingArray.add(input);
+			Collections.sort(hammingArray);
+			return hammingArray;
+		}	
+		else {
+			System.out.println("Stations already exists!");
+			return hammingArray;
+		}
+		
+	}
+	
 	
 
 }
