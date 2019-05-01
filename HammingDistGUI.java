@@ -38,7 +38,7 @@ public class HammingDistGUI {
 		JPanel row1 = new JPanel(new GridLayout(1, 2));
 		JLabel enterHammDist = new JLabel("Enter Hamming Dist:");
 		JTextField inputDist = new JTextField();
-		//TODO have textfield correspond with slider in row 2
+		inputDist.setText("1");
 		row1.add(enterHammDist);
 		row1.add(inputDist);
 		leftSide.add(row1);
@@ -160,8 +160,7 @@ public class HammingDistGUI {
 		});
 		
 		showStations.addActionListener(new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {	
+			public void actionPerformed(ActionEvent arg0) {	
 				displayHammDist.setText("");
 				int value = row2.getValue();
 				String sameList = "";
@@ -178,20 +177,28 @@ public class HammingDistGUI {
 			
 		});
 		
+		calculateHD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String input = (String) dropBox.getSelectedItem();
+				
+				int[] node = hd.distanceBetween(input);
+				answer0.setText("" + node[0]);
+				answer1.setText("" + node[1]);
+				answer2.setText("" + node[2]);
+				answer3.setText("" + node[3]);
+				answer4.setText("" + node[4]);
+				
+				
+				
+			}
+		});
+		
+		
+		
 		addStation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String input = stationInput.getText().toUpperCase();
 				if(input.length() == 4) {
-					/**String[] newStationList = new String[size + count];
-					
-					newStationList[0] = input;
-					
-					for (int i = 1; i < newStationList.length-1; i++) {
-						newStationList[i] = stationList[i-1];
-					}
-					
-					DefaultComboBoxModel dcm = new DefaultComboBoxModel(newStationList);
-					dropBox.setModel(dcm);*/
 					
 					hd.addStation(input);
 					Object[] newStations = hd.getStations().toArray();
@@ -205,7 +212,6 @@ public class HammingDistGUI {
 				}
 				
 			}
-			//TODO make button do stuff
 			
 		});
 		

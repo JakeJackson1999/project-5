@@ -7,7 +7,6 @@ import java.util.Collections;
 
 public class HammingDistance {
 	
-	private String city;
 	private ArrayList<String> hammingArray = new ArrayList<String>();
 	String compare = "";
 
@@ -35,39 +34,46 @@ public class HammingDistance {
 		return hammingArray;
 	}
 	
-	public ArrayList<String> getSameStations(String city, int value){
-		this.city = city;
+	public ArrayList<String> getSameStations(String input, int value){
 		ArrayList<String> stations = getStations();
 		
 		ArrayList<String> sameList = new ArrayList<String>();
 		
 		
-		for(int i = 0; i < sameList.size(); i++) {
+		for(int i = 0; i < hammingArray.size(); i++) {
 			compare = stations.get(i);
 			
 			int count = 0;
-			char city1 = city.charAt(0);
-			char city2 = city.charAt(1);
-			char city3 = city.charAt(2);
-			char city4 = city.charAt(3);
 			
-			char compare1 = compare.charAt(0);
-			char compare2 = compare.charAt(1);
-			char compare3 = compare.charAt(2);
-			char compare4 = compare.charAt(3);
 			
-			if(city1 == compare1) {
+			if(input.charAt(0) == compare.charAt(0)) {
+				count = count;
+			}
+			else {
 				count += 1;
 			}
-			else if(city2 == compare2) {
+			
+			if(input.charAt(1) == compare.charAt(1)) {
+				count = count;
+			}
+			else {
 				count += 1;
 			}
-			else if(city3 == compare3) {
+			
+			if(input.charAt(2) == compare.charAt(2)) {
+				count = count;
+			}
+			else {
 				count += 1;
 			}
-			else if(city4 == compare4) {
+			
+			if(input.charAt(3) == compare.charAt(3)) {
+				count = count;
+			}
+			else {
 				count += 1;
 			}
+			
 			
 			if (count == value) {
 				sameList.add(compare);
@@ -104,6 +110,65 @@ public class HammingDistance {
 			System.out.println("Stations already exists!");
 			return hammingArray;
 		}
+		
+	}
+	
+	public int[] distanceBetween(String input) {
+		int[] node = new int[5];
+		
+		for(int i = 0; i < hammingArray.size(); i++) {
+			
+			int count = 0;
+			
+			if(input.charAt(0) == hammingArray.get(i).charAt(0)) {
+				count = count;
+			}
+			else {
+				count += 1;
+			}
+			
+			if(input.charAt(1) == hammingArray.get(i).charAt(1)) {
+				count = count;
+			}
+			else {
+				count += 1;
+			}
+			
+			if(input.charAt(2) == hammingArray.get(i).charAt(2)) {
+				count = count;
+			}
+			else {
+				count += 1;
+			}
+			
+			if(input.charAt(3) == hammingArray.get(i).charAt(3)) {
+				count = count;
+			}
+			else {
+				count += 1;
+			}
+			
+			if(count == 0) {
+				node[0] += 1;
+			}
+			else if(count == 1) {
+				node[1] += 1;
+			}
+			else if(count == 2) {
+				node[2] += 1;
+			}
+			else if(count == 3) {
+				node[3] += 1;
+			}
+			else if(count == 4) {
+				node[4] += 1;
+			}
+			
+			
+		}
+		
+		return node;
+		
 		
 	}
 	
