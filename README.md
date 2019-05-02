@@ -29,12 +29,14 @@ of the panel by adding in a sub panel that had the borderLayout so I could set i
 have a message pop up on the right panel saying that it was "Showing Stations".
 
 row 4:
-This row only consisted of the textarea that diplays all of the stations as described in my row 4 discription. 
+This row only consisted of the textarea that diplays all of the stations as described in my row 4 discription. I made this 
+text area scrollable because depending on the hamming distance and the station being compared, there can me many stations
+with similar distances.
 
 row 5:
 This row consists of a label and a JComboBox, in this I added in a sub panel to help organize this contents for this row. The label describes what the item in the drop down menu is being used for, in this case it
 lets the user know that the item in the drop down menu is what is being compared against all of the other stations. By default the drop
-down menu has all of the default stations that were given inside of this. I did this by using a buffered reader to read in the given fileand set its contents to an ArrayList, this however was done in another class which I will talk about later. Other stations can also be added to this drop down menu with the contents of row 8.
+down menu has all of the default stations that were given inside of this. I did this by using a buffered reader to read in the given file and set its contents to an ArrayList, this however was done in another class which I will talk about later. Other stations can also be added to this drop down menu with the contents of row 8.
 
 row 6:
 for this row I did a similar thing as row 3 in that I created a subclass with a borderlayout so I could set the calculate hamming 
@@ -63,7 +65,7 @@ First I initialized the ArrayList of type string hammingArray, which would store
 message variables of type String were also initialized. I then went on to creating different methods that had different purposes. 
 
 The first method I created was the HammingDistance constructor which read in the file of station names and set the names to the
-hammingArray ArrayList by using a buffered reader and a for loop to add each name to different indexes of hammingArray.
+hammingArray ArrayList by using a buffered reader and a for loop to add each station to different indexes of hammingArray.
 
 The next method was getStations which returned the ArrayList of station names that was originally used to set the contents of the drop
 down menu in the GUI class.
@@ -71,9 +73,9 @@ down menu in the GUI class.
 The next method was the getSameStation that would return all of the stations with similar hamming distances as the given station and 
 the slider value that determined what distance we were looking for. To do this I used a for loop to iterate through each station and
 compare the individual characters to the given station's and if it matched the distance we were looking for it would be added to a new
-arraylist. The new array list was the returned after looking at each station.
+arraylist. The new array list was then returned after looking at each station.
 
-the next method was the addStation method which would add the givin station to list of other stations. I first check to see if the 
+The next method was the addStation method which would add the given station to list of other stations. I first check to see if the 
 station was already in the list, if it was a message would display saying that it was already in the list and would not add it to
 the list. If the station was not in the existing list then it would be added. The updated list would then be returned.
 
@@ -84,18 +86,18 @@ number of stations that had a certain distance from the given stations. Similar 
 compared each character to all of the stations in the array and determine its distance from them. If the distance was 0 it would go in 
 the first index of the array, if the distance was 1 it would go in the second index, if the distance was 2 it would go in the third
 index, if the distance was 3 it would go in the fourth index, and if the distance was 4 it would go in the fifth index. The array was
-returned and used to fill out the distance textfields in row7 of the GUI class.
+returned and used to fill out the distance textfields in row 7 of the GUI class.
 
 The last thing I did for this project was the creative section on the right side of the GUI frame. For this I decided to set up a
 message board that would display certain messages depending on what the user did. I did this by splitting the panel into eight equal
 parts and adding a label saying what that side was for and a button that would clear the panel to the first section of the panel. 
 The rest of the panel was filled with text areas that would display messages to the user. I did this because if for example the user was 
-trying to add a station that was already in the list or a station that didn't have the right length, I wanted to see why tbe station 
+trying to add a station that was already in the list or a station that didn't have the right length, I wanted the user to see why the station 
 wasn't being added. The same goes for the enter hamming distance text field. I added some additional messages for the slider and when
 the user pushed the show stations and calculate hd buttons. Finally, I added a clear messages button that would erase all of the 
-messages except for the value of the slider. I decided to keep the slider because in addition to the textbox and slider itself I
+messages except for the value of the slider. I decided to keep the slider message because in addition to the textbox and slider itself I
 thought it would be nice for the user to see a message saying what the slider was set to. The clear message button used an action 
-listener that would clear the appropriate text areas when pressed. 
+listener that would clear the appropriate text areas when pressed by setting each text area, excpet for the silder text area, to "" which would clear any messages. 
 
 Below I have a link to the UML I created.
 
