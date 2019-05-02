@@ -73,7 +73,7 @@ public class HammingDistGUI {
 	    row2.setPaintLabels(true);
 	    row2.addChangeListener(new ChangeListener() {
 	    	public void stateChanged(ChangeEvent event) {
-	    		messageBox1.setText("\n\nSlider Set To: " + row2.getValue());
+	    		messageBox1.setText("\nSlider Set To: " + row2.getValue());
 	            int value = row2.getValue();
 	            inputDist.setText(Integer.toString(value));
 	          }
@@ -167,7 +167,13 @@ public class HammingDistGUI {
 		inputDist.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
 		        String value = inputDist.getText();
-	            row2.setValue(Integer.parseInt(value));
+		        int compare = Integer.parseInt(value);
+		        if(compare >= 1 && compare <= 4) {
+	            	row2.setValue(Integer.parseInt(value));
+		        }
+		        else {
+		        	messageBox1.setText("\nThat Number Is Not On The Slider!");
+		        }
 		      }
 		});
 		
