@@ -35,7 +35,7 @@ public class HammingDistGUI {
 		//add textarea to right side
 		JPanel messagePanel = new JPanel(new BorderLayout());
 		JLabel rightTitle = new JLabel("Message Board:");
-		JButton erase = new JButton("Erase Messages");
+		JButton erase = new JButton("Clear Messages");
 		JTextArea messageBox1 = new JTextArea();
 		JTextArea messageBox2 = new JTextArea();
 		JTextArea messageBox3 = new JTextArea();
