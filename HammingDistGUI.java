@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -24,15 +25,36 @@ public class HammingDistGUI {
 	
 	public HammingDistGUI() throws IOException {
 		JFrame HammingDist = new JFrame();
-		JPanel leftSide = new JPanel(new GridLayout(8,1));
-		JPanel rightSide = new JPanel();
-		HammingDistance hd = new HammingDistance();
-		//String dropBoxItem = "";
-		ArrayList<String> stationList = hd.getStations();
-		int count = 1;
-		ArrayList<String> newList = new ArrayList<String>();
 		
-		//JPanel leftContents = new JPanel(new GridLayout(8,1));
+		JPanel leftSide = new JPanel(new GridLayout(8,1));
+		JPanel rightSide = new JPanel(new GridLayout(8,1));
+		
+		HammingDistance hd = new HammingDistance();
+		ArrayList<String> stationList = hd.getStations();
+		
+		//add textarea to right side
+		JPanel messagePanel = new JPanel(new BorderLayout());
+		JLabel rightTitle = new JLabel("Message Board:");
+		JButton erase = new JButton("Erase Messages");
+		JTextArea messageBox1 = new JTextArea();
+		JTextArea messageBox2 = new JTextArea();
+		JTextArea messageBox3 = new JTextArea();
+		JTextArea messageBox4 = new JTextArea();
+		JTextArea messageBox5 = new JTextArea();
+		JTextArea messageBox6 = new JTextArea();
+		JTextArea messageBox7 = new JTextArea();
+		messagePanel.add(rightTitle, BorderLayout.SOUTH);
+		messagePanel.add(erase);
+		rightSide.add(messagePanel);
+		rightSide.add(messageBox1);
+		rightSide.add(messageBox2);
+		rightSide.add(messageBox3);
+		rightSide.add(messageBox4);
+		rightSide.add(messageBox5);
+		rightSide.add(messageBox6);
+		rightSide.add(messageBox7);
+		
+		
 		
 		//add enterHammingDist label and textbox
 		JPanel row1 = new JPanel(new GridLayout(1, 2));
@@ -51,6 +73,7 @@ public class HammingDistGUI {
 	    row2.setPaintLabels(true);
 	    row2.addChangeListener(new ChangeListener() {
 	    	public void stateChanged(ChangeEvent event) {
+	    		messageBox1.setText("\n\nSlider Set To: " + row2.getValue());
 	            int value = row2.getValue();
 	            inputDist.setText(Integer.toString(value));
 	          }
@@ -61,24 +84,6 @@ public class HammingDistGUI {
 		//row 3 is the show status button
 		JPanel row3 = new JPanel(new BorderLayout());
 		JButton showStations = new JButton("Show Stations");
-		
-		/**showStations.addActionListener((e) -> {
-			displayHammDist.setText("");
-			String stringNumber = inputDist.getText();
-			int value = Integer.parseInt(stringNumber);
-			String sameList = "";
-			ArrayList<String> list = hd.getSameStations(dropBoxItem, value);
-			Collections.sort(list);
-			for(String s : list) {
-				sameList += s + "\n";
-			}
-			displayHammDist.setText(sameList);
-			
-			
-			//TODO make button do stuff
-			
-		});*/
-		
 		row3.add(showStations, BorderLayout.WEST);
 		leftSide.add(row3);
 		
@@ -86,16 +91,15 @@ public class HammingDistGUI {
 		JPanel row4 = new JPanel(new GridLayout(1, 1));
 		row4.setSize(300, 400);
 		JTextArea displayHammDist = new JTextArea();
-		displayHammDist.setSize(300, 400); //TODO Figure out why sizing will not work
+		JScrollPane scroll = new JScrollPane (displayHammDist);
 		displayHammDist.setEditable(true);
-		row4.add(displayHammDist);
+		row4.add(scroll);
 		leftSide.add(row4);
 		
 		//row 5 is label and combo box
 		JPanel row5 = new JPanel(new GridLayout(1, 2));
 		JLabel compareWith = new JLabel("Compare with:");
 		JComboBox dropBox = new JComboBox(stationList.toArray());
-		//dropBoxItem = (String) dropBox.getSelectedItem();
 		row5.add(compareWith);
 		row5.add(dropBox);
 		leftSide.add(row5);
@@ -103,13 +107,6 @@ public class HammingDistGUI {
 		//row 6
 		JPanel row6 = new JPanel(new BorderLayout());
 		JButton calculateHD = new JButton("Calculate HD");
-		
-		calculateHD.addActionListener((e) -> {
-			
-			//TODO make button do stuff
-			
-		});
-		
 		row6.add(calculateHD, BorderLayout.WEST);
 		leftSide.add(row6);
 		
@@ -130,7 +127,6 @@ public class HammingDistGUI {
 		answer2.setEditable(false);
 		answer3.setEditable(false);
 		answer4.setEditable(false);
-		//TODO update before adding to panel
 		row7.add(Distance0);
 		row7.add(answer0);
 		row7.add(Distance1);
@@ -151,6 +147,22 @@ public class HammingDistGUI {
 		row8.add(stationInput);
 		leftSide.add(row8);
 		
+		
+		//erase message board
+		erase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//messageBox1.setText("");
+				messageBox2.setText("");
+				messageBox3.setText("");
+				messageBox4.setText("");
+				messageBox5.setText("");
+				messageBox6.setText("");
+				messageBox7.setText("");
+				
+			}
+			
+		});
+		
 		// action listeners for buttons and other gui components
 		inputDist.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
@@ -161,6 +173,7 @@ public class HammingDistGUI {
 		
 		showStations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
+				messageBox2.setText("\n\nShowing Stations!");
 				displayHammDist.setText("");
 				int value = row2.getValue();
 				String sameList = "";
@@ -173,13 +186,14 @@ public class HammingDistGUI {
 				displayHammDist.setText(sameList);
 			
 			}
-			//TODO make button do stuff
 			
 		});
 		
 		calculateHD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String input = (String) dropBox.getSelectedItem();
+				
+				messageBox5.setText("\n\nCalculating Hamming Distance!");
 				
 				int[] node = hd.distanceBetween(input);
 				answer0.setText("" + node[0]);
@@ -193,22 +207,25 @@ public class HammingDistGUI {
 			}
 		});
 		
-		
+		messageBox5.setText("");
 		
 		addStation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String input = stationInput.getText().toUpperCase();
 				if(input.length() == 4) {
-					
+					messageBox7.setText("");
 					hd.addStation(input);
 					Object[] newStations = hd.getStations().toArray();
 					DefaultComboBoxModel dcm = new DefaultComboBoxModel(newStations);
 					dropBox.setModel(dcm);
+					messageBox7.setText(hd.getAddMessage());
 					
 					
 				}
 				else {
-					System.out.println("Stations isn't the right length");
+					messageBox7.setText("");
+					System.out.println("Station isn't the right length");
+					messageBox7.setText("\n\nStation isn't the right length!");
 				}
 				
 			}
@@ -220,7 +237,6 @@ public class HammingDistGUI {
 		
 		
 		//add left and right sides to JFrame and create JFrame specifics
-		//leftSide.add(leftContents);
 		
 		HammingDist.setLayout(new GridLayout(1, 2));
 		HammingDist.add(leftSide);

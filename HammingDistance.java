@@ -9,6 +9,7 @@ public class HammingDistance {
 	
 	private ArrayList<String> hammingArray = new ArrayList<String>();
 	String compare = "";
+	String message = "";
 
 	public HammingDistance() throws IOException {
 		
@@ -90,7 +91,6 @@ public class HammingDistance {
 	}
 	
 	public ArrayList<String> addStation(String input){
-		
 		boolean isIn = false;
 		
 		for(int i = 0; i < hammingArray.size(); i++) {
@@ -104,13 +104,19 @@ public class HammingDistance {
 		if(isIn == false) {
 			hammingArray.add(input);
 			Collections.sort(hammingArray);
+			message = "";
 			return hammingArray;
 		}	
 		else {
 			System.out.println("Stations already exists!");
+			message = "\n\nStations already exists!";
 			return hammingArray;
 		}
 		
+	}
+	
+	public String getAddMessage() {
+		return message;
 	}
 	
 	public int[] distanceBetween(String input) {
