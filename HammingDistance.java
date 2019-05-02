@@ -27,11 +27,6 @@ public class HammingDistance {
 	}
 	
 	public ArrayList<String> getStations() {
-		/**ArrayList<String> stationsList = new ArrayList<String>;
-		
-		for(int i = 0; i < hammingArray.size(); i++) {
-			stationsList[i] = hammingArray.get(i);
-		}*/
 		return hammingArray;
 	}
 	
